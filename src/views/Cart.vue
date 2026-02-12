@@ -185,9 +185,14 @@ export default {
     .item-right {
       flex-grow: 1;
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      min-width: 0; /* Allow flex item to shrink */
+      gap: 1.5rem;
+      min-width: 0;
+    }
+
+    .item-details {
+      flex: 1;
+      min-width: 0;
     }
 
     .item-title {
@@ -248,14 +253,25 @@ export default {
         margin-right: 1rem;
       }
       
+      .item-right {
+        position: relative;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+      
+      .item-details {
+        flex: 1 1 100%;
+      }
+      
       .item-title {
         font-size: 0.875rem;
+        padding-right: 2rem; /* 为删除按钮留空间 */
       }
       
       .item-meta {
         gap: 0.75rem;
-        flex-direction: column;
-        align-items: flex-end;
+        flex-direction: row;
+        align-items: center;
         
         .item-qty {
           font-size: 0.8rem;
@@ -265,6 +281,15 @@ export default {
           font-size: 0.95rem;
           min-width: auto;
         }
+      }
+      
+      .btn-delete {
+        position: absolute;
+        top: 0;
+        right: 0;
+        margin: 0;
+        padding: 0.5rem;
+        font-size: 1.5rem;
       }
     }
   }
