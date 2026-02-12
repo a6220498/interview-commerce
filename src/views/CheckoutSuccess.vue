@@ -13,7 +13,7 @@
       
       <div class="order-info">
         <p class="order-number">訂單編號：#{{ orderNumber }}</p>
-        <p class="order-time">訂單時間：{{ orderTime }}</p>
+        <p class="order-time">訂單時間dffd：{{ orderTime }}</p>
       </div>
       
       <router-link to="/" class="btn-home">返回首頁</router-link>
