@@ -1,38 +1,40 @@
 <template>
-  <div v-if="isOpen" class="dialog-overlay" @click.self="closeDialog">
-    <div class="dialog-content">
-      <div class="dialog-header">
-        <h3>加入購物車</h3>
-        <button class="close-btn" @click="closeDialog">&times;</button>
-      </div>
+  <transition name="fade">
+    <div v-if="isOpen" class="dialog-overlay" @click.self="closeDialog">
+      <div class="dialog-content">
+        <div class="dialog-header">
+          <h3>加入購物車</h3>
+          <button class="close-btn" @click="closeDialog">&times;</button>
+        </div>
 
-      <div class="dialog-body" v-if="selectedProduct">
-        <div class="product-preview">
-          <img :src="selectedProduct.image" :alt="selectedProduct.title" />
-          <div class="info">
-            <h4>{{ selectedProduct.title }}</h4>
-            <p class="price">$ {{ selectedProduct.price }}</p>
+        <div class="dialog-body" v-if="selectedProduct">
+          <div class="product-preview">
+            <img :src="selectedProduct.image" :alt="selectedProduct.title" />
+            <div class="info">
+              <h4>{{ selectedProduct.title }}</h4>
+              <p class="price">$ {{ selectedProduct.price }}</p>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="qty">數量 <span class="required">*</span></label>
+            <input 
+              type="number" 
+              id="qty" 
+              v-model.number="quantity" 
+              min="1" 
+              placeholder="請輸入數量"
+            />
           </div>
         </div>
 
-        <div class="form-group">
-          <label for="qty">數量 <span class="required">*</span></label>
-          <input 
-            type="number" 
-            id="qty" 
-            v-model.number="quantity" 
-            min="1" 
-            placeholder="請輸入數量"
-          />
+        <div class="dialog-footer">
+          <button class="btn btn-secondary" @click="closeDialog">取消</button>
+          <button class="btn btn-primary" @click="confirmAddToCart" :disabled="!isValid">確認</button>
         </div>
       </div>
-
-      <div class="dialog-footer">
-        <button class="btn btn-secondary" @click="closeDialog">取消</button>
-        <button class="btn btn-primary" @click="confirmAddToCart" :disabled="!isValid">確認</button>
-      </div>
     </div>
-  </div>
+  </transition>
 </template>
 
 <script>
@@ -71,7 +73,7 @@ export default {
           product: this.selectedProduct,
           quantity: this.quantity
         })
-        // Optional: Show success message/toast
+        this.CLOSE_DIALOG() // Ensure dialog closes on confirm
       }
     }
   }
@@ -100,9 +102,27 @@ export default {
   border-radius: 12px;
   padding: 24px;
   box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-  animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  // Animation handled by transition component now
+}
 
-  .dialog-header {
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 0.3s;
+  
+  .dialog-content {
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+}
+
+.fade-enter, .fade-leave-to {
+  opacity: 0;
+  
+  .dialog-content {
+    transform: scale(0.9);
+  }
+}
+
+// ... keep existing styles for header, body, footer ...
+.dialog-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -223,16 +243,4 @@ export default {
       }
     }
   }
-}
-
-@keyframes popIn {
-  from {
-    opacity: 0;
-    transform: scale(0.9);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
 </style>
