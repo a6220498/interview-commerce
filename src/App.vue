@@ -2,7 +2,7 @@
   <div id="app">
     <header class="app-header">
       <div class="container">
-        <h1>Interview Products</h1>
+        <h1>面試小電商</h1>
         <div class="cart-icon" @click="$router.push('/cart')">
           <i class="fas fa-shopping-cart"></i>
           <span class="badge" v-if="cartCount > 0">{{ cartCount }}</span>

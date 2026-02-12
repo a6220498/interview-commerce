@@ -1,9 +1,9 @@
 <template>
   <div class="cart-page">
-    <h2>Shopping Cart</h2>
+    <h2>購物車</h2>
     <div v-if="cartCount === 0" class="empty-cart">
-      <p>Your cart is empty.</p>
-      <router-link to="/" class="btn-primary">Go Shopping</router-link>
+      <p>您的購物車是空的。</p>
+      <router-link to="/" class="btn-primary">去購物</router-link>
     </div>
     <div v-else class="cart-items-container">
       <ul class="cart-list">
@@ -25,12 +25,12 @@
 
       <div class="cart-footer">
         <div class="cart-total">
-          <span>Total:</span>
+          <span>總計:</span>
           <span class="total-amount">$ {{ cartTotal }}</span>
         </div>
         <div class="cart-actions">
-          <router-link to="/" class="btn-secondary">Go Shopping</router-link>
-          <button class="btn-primary">Checkout</button>
+          <router-link to="/" class="btn-secondary">去購物</router-link>
+          <button class="btn-primary">結帳</button>
         </div>
       </div>
     </div>
