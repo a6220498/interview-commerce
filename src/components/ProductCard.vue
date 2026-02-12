@@ -1,8 +1,8 @@
 <template>
   <div class="product-item">
-    <div class="product-image-container" @mouseenter="hover = true" @mouseleave="hover = false">
+    <div class="product-image-container" @mouseenter="hover = true" @mouseleave="hover = false" @click="openDialog">
       <img :src="product.image" :alt="product.title" class="product-image">
-      <button v-show="hover" class="add-to-cart-btn" @click="openDialog">
+      <button v-show="hover" class="add-to-cart-btn">
         加入購物車
       </button>
     </div>
