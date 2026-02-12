@@ -1,0 +1,27 @@
+{
+  "name": "interview-commerce",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "vue": "^2.6.14",
+    "vuex": "^3.6.2"
+  },
+  "devDependencies": {
+    "@types/node": "^25.2.3",
+    "path": "^0.12.7",
+    "sass": "^1.97.3",
+    "vite": "^4.5.14",
+    "vite-plugin-vue2": "^2.0.3",
+    "vue-template-compiler": "2.6.14"
+  }
+}
