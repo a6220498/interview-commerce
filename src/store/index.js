@@ -27,6 +27,9 @@ export default new Vuex.Store({
             } else {
                 state.cart.push({ ...item.product, quantity: parseInt(item.quantity) })
             }
+        },
+        CLEAR_CART(state) {
+            state.cart = []
         }
     },
     actions: {
@@ -43,6 +46,6 @@ export default new Vuex.Store({
     },
     getters: {
         cartCount: state => state.cart.reduce((total, item) => total + item.quantity, 0),
-        cartTotal: state => state.cart.reduce((total, item) => total + (item.price * item.quantity), 0)
+        cartTotal: state => state.cart.reduce((total, item) => total + (item.price * item.quantity), 0).toFixed(2)
     }
 })
