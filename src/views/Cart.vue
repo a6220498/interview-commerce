@@ -51,10 +51,10 @@ export default {
 
 <style lang="scss" scoped>
 .cart-page {
-  padding: 2rem 0;
+  padding: 2rem 1rem;
   max-width: 800px;
   margin: 0 auto;
-  height: calc(100vh - 80px); /* Adjust based on header height, assumed ~80px */
+  height: calc(100vh - 80px);
   display: flex;
   flex-direction: column;
   
@@ -64,6 +64,17 @@ export default {
     border-bottom: 1px solid #eee;
     padding-bottom: 1rem;
     flex-shrink: 0;
+  }
+
+  @media (max-width: 600px) {
+    padding: 1rem 0.75rem;
+    height: calc(100vh - 60px);
+    
+    h2 {
+      font-size: 1.3rem;
+      margin-bottom: 1rem;
+      padding-bottom: 0.75rem;
+    }
   }
 
   .cart-items-container {
@@ -129,18 +140,23 @@ export default {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      min-width: 0; /* Allow flex item to shrink */
     }
 
     .item-title {
       margin: 0;
       font-size: 1rem;
       color: #333;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
 
     .item-meta {
       display: flex;
       gap: 2rem;
       align-items: center;
+      flex-shrink: 0;
       
       .item-qty {
         color: #666;
@@ -154,6 +170,35 @@ export default {
         text-align: right;
       }
     }
+
+    @media (max-width: 600px) {
+      padding: 1rem 0;
+      
+      .item-left {
+        width: 60px;
+        height: 60px;
+        margin-right: 1rem;
+      }
+      
+      .item-title {
+        font-size: 0.875rem;
+      }
+      
+      .item-meta {
+        gap: 0.75rem;
+        flex-direction: column;
+        align-items: flex-end;
+        
+        .item-qty {
+          font-size: 0.8rem;
+        }
+        
+        .item-price {
+          font-size: 0.95rem;
+          min-width: auto;
+        }
+      }
+    }
   }
 
   .cart-footer {
@@ -165,7 +210,7 @@ export default {
     border-top: 1px solid #eee;
     margin-top: 1rem;
     background-color: white;
-    flex-shrink: 0; /* Prevent footer from shrinking */
+    flex-shrink: 0;
     
     .cart-total {
       font-size: 1.5rem;
@@ -182,6 +227,29 @@ export default {
       display: flex;
       gap: 1rem;
     }
+
+    @media (max-width: 600px) {
+      gap: 1rem;
+      padding-top: 0.75rem;
+      
+      .cart-total {
+        font-size: 1.2rem;
+        
+        .total-amount {
+          margin-left: 0.5rem;
+        }
+      }
+      
+      .cart-actions {
+        gap: 0.5rem;
+        width: 100%;
+        
+        a, button {
+          flex: 1;
+          text-align: center;
+        }
+      }
+    }
   }
   
   .btn-primary, .btn-secondary {
@@ -194,6 +262,11 @@ export default {
     border: none;
     cursor: pointer;
     font-size: 1rem;
+    
+    @media (max-width: 600px) {
+      padding: 0.6rem 1rem;
+      font-size: 0.875rem;
+    }
   }
   
   .btn-primary {
