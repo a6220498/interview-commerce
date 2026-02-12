@@ -30,7 +30,7 @@
         </div>
         <div class="cart-actions">
           <router-link to="/" class="btn-secondary">去購物</router-link>
-          <button class="btn-primary">結帳</button>
+          <button class="btn-primary" @click="handleCheckout">結帳</button>
         </div>
       </div>
     </div>
@@ -38,13 +38,20 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from 'vuex'
+import { mapState, mapGetters, mapMutations } from 'vuex'
 
 export default {
   name: 'Cart',
   computed: {
     ...mapState(['cart']),
     ...mapGetters(['cartCount', 'cartTotal'])
+  },
+  methods: {
+    ...mapMutations(['CLEAR_CART']),
+    handleCheckout() {
+      this.CLEAR_CART()
+      this.$router.push('/checkout-success')
+    }
   }
 }
 </script>
