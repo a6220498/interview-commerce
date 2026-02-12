@@ -21,7 +21,7 @@ export default new Vuex.Store({
             state.selectedProduct = null
         },
         ADD_TO_CART(state, item) {
-            const existingItem = state.cart.find(p => p.id === item.id)
+            const existingItem = state.cart.find(p => p.id === item.product.id)
             if (existingItem) {
                 existingItem.quantity += parseInt(item.quantity)
             } else {
@@ -43,6 +43,6 @@ export default new Vuex.Store({
     },
     getters: {
         cartCount: state => state.cart.reduce((total, item) => total + item.quantity, 0),
-        cartTotal: state => state.cart.reduce((total, item) => total + (item.price * item.quantity), 0).toFixed(2)
+        cartTotal: state => state.cart.reduce((total, item) => total + (item.price * item.quantity), 0)
     }
 })
