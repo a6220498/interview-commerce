@@ -1,39 +1,43 @@
 <template>
   <div class="cart-page">
     <h2>購物車</h2>
-    <div v-if="cartCount === 0" class="empty-cart">
-      <p>您的購物車是空的。</p>
-      <router-link to="/" class="btn-primary">去購物</router-link>
-    </div>
-    <div v-else class="cart-items-container">
-      <ul class="cart-list">
-        <li v-for="item in cart" :key="item.id" class="cart-item">
-          <div class="item-left">
-            <img :src="item.image" :alt="item.title" class="item-image" />
-          </div>
-          <div class="item-right">
-            <div class="item-details">
-              <h3 class="item-title">{{ item.title }}</h3>
+    
+    <transition name="fade" mode="out-in">
+      <div v-if="cartCount === 0" key="empty" class="empty-cart">
+        <p>您的購物車是空的。</p>
+        <router-link to="/" class="btn-primary">去購物</router-link>
+      </div>
+      <div v-else key="items" class="cart-items-container">
+        <transition-group name="list" tag="ul" class="cart-list">
+          <li v-for="item in cart" :key="item.id" class="cart-item">
+            <div class="item-left">
+              <img :src="item.image" :alt="item.title" class="item-image" />
             </div>
-            <div class="item-meta">
-              <span class="item-qty">x {{ item.quantity }}</span>
-              <span class="item-price">$ {{ item.price }}</span>
+            <div class="item-right">
+              <div class="item-details">
+                <h3 class="item-title">{{ item.title }}</h3>
+              </div>
+              <div class="item-meta">
+                <span class="item-qty">x {{ item.quantity }}</span>
+                <span class="item-price">$ {{ item.price }}</span>
+              </div>
+              <button class="btn-delete" @click="removeItem(item.id)" title="刪除">×</button>
             </div>
-          </div>
-        </li>
-      </ul>
+          </li>
+        </transition-group>
 
-      <div class="cart-footer">
-        <div class="cart-total">
-          <span>總計:</span>
-          <span class="total-amount">$ {{ cartTotal }}</span>
-        </div>
-        <div class="cart-actions">
-          <router-link to="/" class="btn-secondary">去購物</router-link>
-          <button class="btn-primary" @click="handleCheckout">結帳</button>
+        <div class="cart-footer">
+          <div class="cart-total">
+            <span>總計:</span>
+            <span class="total-amount">$ {{ cartTotal }}</span>
+          </div>
+          <div class="cart-actions">
+            <router-link to="/" class="btn-secondary">去購物</router-link>
+            <button class="btn-primary" @click="handleCheckout">結帳</button>
+          </div>
         </div>
       </div>
-    </div>
+    </transition>
   </div>
 </template>
 
@@ -47,10 +51,13 @@ export default {
     ...mapGetters(['cartCount', 'cartTotal'])
   },
   methods: {
-    ...mapMutations(['CLEAR_CART']),
+    ...mapMutations(['CLEAR_CART', 'REMOVE_FROM_CART']),
     handleCheckout() {
       this.CLEAR_CART()
       this.$router.push('/checkout-success')
+    },
+    removeItem(productId) {
+      this.REMOVE_FROM_CART(productId)
     }
   }
 }
@@ -90,6 +97,15 @@ export default {
     flex-direction: column;
     overflow: hidden; /* Prevent container itself from scrolling */
   }
+
+  // Fade transition for cart content switch
+  .fade-enter-active, .fade-leave-active {
+    transition: opacity 0.3s ease;
+  }
+  
+  .fade-enter, .fade-leave-to {
+    opacity: 0;
+  }
   
   .empty-cart {
     text-align: center;
@@ -109,6 +125,7 @@ export default {
     margin: 0;
     flex-grow: 1;
     overflow-y: auto; /* Enable scrolling for list */
+    overflow-x: hidden; /* Hide horizontal scrollbar during animation */
     padding-right: 10px; /* Space for scrollbar */
     
     &::-webkit-scrollbar {
@@ -119,6 +136,29 @@ export default {
       background-color: #ccc;
       border-radius: 3px;
     }
+  }
+
+  // Transition animations for list items
+  .list-enter-active {
+    transition: all 0.3s ease;
+  }
+  
+  .list-leave-active {
+    transition: all 0.4s ease;
+  }
+  
+  .list-enter {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  
+  .list-leave-to {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  
+  .list-move {
+    transition: transform 0.3s ease;
   }
 
   .cart-item {
@@ -175,6 +215,27 @@ export default {
         font-size: 1.1rem;
         min-width: 80px;
         text-align: right;
+      }
+    }
+
+    .btn-delete {
+      background: none;
+      border: none;
+      color: #e53935;
+      font-size: 1.8rem;
+      cursor: pointer;
+      padding: 0.25rem 0.5rem;
+      margin-left: 1rem;
+      line-height: 1;
+      transition: all 0.2s;
+      
+      &:hover {
+        color: #c62828;
+        transform: scale(1.2);
+      }
+      
+      &:active {
+        transform: scale(1);
       }
     }
 

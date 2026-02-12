@@ -30,6 +30,9 @@ export default new Vuex.Store({
         },
         CLEAR_CART(state) {
             state.cart = []
+        },
+        REMOVE_FROM_CART(state, productId) {
+            state.cart = state.cart.filter(item => item.id !== productId)
         }
     },
     actions: {
