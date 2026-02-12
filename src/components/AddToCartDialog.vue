@@ -69,6 +69,16 @@ export default {
     },
     confirmAddToCart() {
       if (this.isValid) {
+        // Get image position for animation
+        const img = this.$el.querySelector('.product-preview img')
+        if (img) {
+          const rect = img.getBoundingClientRect()
+          this.$emit('fly-to-cart', {
+            rect,
+            image: this.selectedProduct.image
+          })
+        }
+        
         this.ADD_TO_CART({
           product: this.selectedProduct,
           quantity: this.quantity

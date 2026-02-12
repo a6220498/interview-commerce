@@ -2,8 +2,8 @@
   <div id="app">
     <header class="app-header">
       <div class="container">
-        <h1>Interview Products</h1>
-        <div class="cart-icon" @click="$router.push('/cart')">
+        <h1>面試商城</h1>
+        <div class="cart-icon" ref="cartIcon" @click="$router.push('/cart')">
           <i class="fas fa-shopping-cart"></i>
           <span class="badge" v-if="cartCount > 0">{{ cartCount }}</span>
         </div>
@@ -14,7 +14,19 @@
       <router-view />
     </main>
 
-    <add-to-cart-dialog />
+    <add-to-cart-dialog @fly-to-cart="handleFlyAnimation" />
+    
+    <!-- Flying Image Container -->
+    <div class="flying-img-container">
+      <img 
+        v-for="item in flyingItems" 
+        :key="item.id"
+        :src="item.image" 
+        class="flying-img"
+        :style="item.style"
+        @transitionend="removeFlyingItem(item.id)"
+      />
+    </div>
   </div>
 </template>
 
@@ -27,8 +39,61 @@ export default {
   components: {
     AddToCartDialog
   },
+  data() {
+    return {
+      flyingItems: []
+    }
+  },
   computed: {
     ...mapGetters(['cartCount'])
+  },
+  methods: {
+    handleFlyAnimation({ rect, image }) {
+      const cartIcon = this.$refs.cartIcon
+      if (!cartIcon) return
+
+      const cartRect = cartIcon.getBoundingClientRect()
+      const id = Date.now()
+      
+      // Start position
+      const startStyle = {
+        top: `${rect.top}px`,
+        left: `${rect.left}px`,
+        width: `${rect.width}px`,
+        height: `${rect.height}px`,
+        opacity: 1,
+        transform: 'scale(1)'
+      }
+
+      this.flyingItems.push({
+        id,
+        image,
+        style: startStyle
+      })
+
+      // Trigger animation in next frame
+      requestAnimationFrame(() => {
+        const item = this.flyingItems.find(i => i.id === id)
+        if (item) {
+          // Calculate center of cart icon
+          const centerX = cartRect.left + cartRect.width / 2
+          const centerY = cartRect.top + cartRect.height / 2
+          const targetSize = 24 // Shrink to cart icon size
+
+          item.style = {
+            top: `${centerY - targetSize / 2}px`,
+            left: `${centerX - targetSize / 2}px`,
+            width: `${targetSize}px`,
+            height: `${targetSize}px`,
+            opacity: 0.9,
+            transform: 'scale(1)'
+          }
+        }
+      })
+    },
+    removeFlyingItem(id) {
+      this.flyingItems = this.flyingItems.filter(item => item.id !== id)
+    }
   }
 }
 </script>
@@ -88,6 +153,23 @@ export default {
   @media (max-width: 600px) {
     grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
     gap: 1rem;
+  }
+}
+
+.flying-img-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9999;
+  
+  .flying-img {
+    position: absolute;
+    border-radius: 50%;
+    object-fit: cover;
+    transition: all 0.8s cubic-bezier(0.19, 1, 0.22, 1);
   }
 }
 
