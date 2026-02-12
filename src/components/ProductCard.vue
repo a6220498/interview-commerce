@@ -49,6 +49,7 @@ export default {
     overflow: hidden;
     border-radius: 8px;
     background-color: #f5f5f5;
+    cursor: pointer;
     
     .product-image {
       width: 100%;

@@ -3,7 +3,7 @@
     <header class="app-header">
       <div class="container">
         <h1>Interview Products</h1>
-        <div class="cart-icon">
+        <div class="cart-icon" @click="$router.push('/cart')">
           <i class="fas fa-shopping-cart"></i>
           <span class="badge" v-if="cartCount > 0">{{ cartCount }}</span>
         </div>
@@ -11,13 +11,7 @@
     </header>
 
     <main class="container">
-      <div class="product-grid">
-        <product-card
-          v-for="product in products"
-          :key="product.id"
-          :product="product"
-        />
-      </div>
+      <router-view />
     </main>
 
     <add-to-cart-dialog />
@@ -25,18 +19,15 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from 'vuex'
-import ProductCard from './components/ProductCard.vue'
+import { mapGetters } from 'vuex'
 import AddToCartDialog from './components/AddToCartDialog.vue'
 
 export default {
   name: 'App',
   components: {
-    ProductCard,
     AddToCartDialog
   },
   computed: {
-    ...mapState(['products']),
     ...mapGetters(['cartCount'])
   }
 }
@@ -45,7 +36,7 @@ export default {
 <style lang="scss">
 // SCSS Variables
 // Global styles imported below
-@import '@/assets/styles.scss';
+@use '@/assets/styles.scss';
 
 .app-header {
   position: sticky;
