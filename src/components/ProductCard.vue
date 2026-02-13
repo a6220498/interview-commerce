@@ -46,7 +46,7 @@ export default {
     aspect-ratio: 1; 
     overflow: hidden;
     border-radius: 8px;
-    background-color: #f5f5f5;
+    background-color: var(--bg-muted);
     cursor: pointer;
     
     .product-image {
@@ -74,7 +74,7 @@ export default {
       left: 50%;
       transform: translateX(-50%);
       background-color: rgba(0, 0, 0, 0.8);
-      color: white;
+      color: var(--text-on-dark);
       border: none;
       padding: 8px 16px;
       border-radius: 20px;
@@ -99,11 +99,11 @@ export default {
       font-size: 16px;
       font-weight: 500;
       margin: 0;
-      color: #333;
+      color: var(--text-primary);
     }
     .product-price {
       font-size: 14px;
-      color: #666;
+      color: var(--text-secondary);
       margin: 4px 0 0;
     }
   }

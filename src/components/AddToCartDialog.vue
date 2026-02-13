@@ -104,7 +104,7 @@ export default {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0,0,0,0.5);
+  background-color: var(--overlay-bg);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -113,13 +113,12 @@ export default {
 }
 
 .dialog-content {
-  background: white;
+  background: var(--bg-card);
   width: 90%;
   max-width: 400px;
   border-radius: 12px;
   padding: 24px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-  // Animation handled by transition component now
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
 }
 
 .fade-enter-active, .fade-leave-active {
@@ -156,12 +155,12 @@ export default {
       border: none;
       font-size: 1.5rem;
       cursor: pointer;
-      color: #999;
+      color: var(--text-muted);
       padding: 0;
       line-height: 1;
 
       &:hover {
-        color: #333;
+        color: var(--text-primary);
       }
     }
   }
@@ -188,7 +187,7 @@ export default {
       }
       .price {
         margin: 0;
-        color: #666;
+        color: var(--text-secondary);
         font-weight: 500;
       }
     }
@@ -204,21 +203,21 @@ export default {
       font-size: 0.9rem;
       
       .required {
-        color: #dc3545;
+        color: var(--error-color);
       }
     }
 
     input {
       width: 100%;
       padding: 10px 12px;
-      border: 1px solid #ddd;
+      border: 1px solid var(--border-base);
       border-radius: 6px;
       font-size: 1rem;
       outline: none;
       transition: border-color 0.2s;
 
       &:focus {
-        border-color: #42b983;
+        border-color: var(--success-color);
       }
     }
   }
@@ -237,8 +236,8 @@ export default {
       transition: all 0.2s;
 
       &.btn-secondary {
-        background: #f1f3f5;
-        color: #495057;
+        background: var(--bg-muted);
+        color: var(--text-primary);
 
         &:hover {
           background: #e9ecef;

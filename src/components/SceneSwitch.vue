@@ -44,8 +44,8 @@ export default {
   position: sticky;
   top: 0;
   z-index: 100;
-  background-color: white;
-  border-bottom: 1px solid #eee;
+  background-color: var(--bg-card);
+  border-bottom: 1px solid var(--border-light);
   padding: 1rem 2rem;
   box-shadow: 0 2px 10px rgba(0,0,0,0.05);
 
@@ -58,7 +58,7 @@ export default {
   h1 {
     font-size: 1.5rem;
     margin: 0;
-    color: #333;
+    color: var(--text-primary);
     font-weight: 700;
   }
 
@@ -72,7 +72,7 @@ export default {
       top: -8px;
       right: -8px;
       background-color: var(--cart-red-color);
-      color: white;
+      color: var(--text-on-dark);
       font-size: 0.75rem;
       padding: 2px 6px;
       border-radius: 10px;
