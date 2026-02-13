@@ -59,7 +59,7 @@ export default {
 }
 
 .success-card {
-  background: white;
+  background: var(--bg-card);
   border-radius: 16px;
   padding: 3rem 2rem;
   text-align: center;
@@ -105,14 +105,14 @@ export default {
 
 h1 {
   font-size: 2rem;
-  color: #333;
+  color: var(--text-primary);
   margin: 0 0 1rem;
   font-weight: 700;
 }
 
 .success-message {
   font-size: 1.1rem;
-  color: #666;
+  color: var(--text-secondary);
   margin: 0 0 2rem;
   line-height: 1.6;
 }
@@ -125,12 +125,12 @@ h1 {
   
   p {
     margin: 0.5rem 0;
-    color: #555;
+    color: var(--text-secondary);
     font-size: 0.95rem;
     
     &.order-number {
       font-weight: 600;
-      color: #333;
+      color: var(--text-primary);
     }
   }
 }
@@ -139,7 +139,7 @@ h1 {
   display: inline-block;
   padding: 1rem 3rem;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
+  color: var(--text-on-dark);
   text-decoration: none;
   border-radius: 8px;
   font-weight: 600;

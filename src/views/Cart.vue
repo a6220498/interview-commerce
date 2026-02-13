@@ -75,7 +75,7 @@ export default {
   h2 {
     margin-bottom: 2rem;
     font-size: 1.8rem;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid var(--border-light);
     padding-bottom: 1rem;
     flex-shrink: 0;
   }
@@ -110,12 +110,12 @@ export default {
   .empty-cart {
     text-align: center;
     padding: 3rem;
-    background: #f9f9f9;
+    background: var(--bg-muted);
     border-radius: 8px;
     
     p {
       margin-bottom: 1.5rem;
-      color: #666;
+      color: var(--text-secondary);
     }
   }
 
@@ -133,7 +133,7 @@ export default {
     }
     
     &::-webkit-scrollbar-thumb {
-      background-color: #ccc;
+      background-color: var(--border-base);
       border-radius: 3px;
     }
   }
@@ -165,7 +165,7 @@ export default {
     display: flex;
     align-items: center;
     padding: 1.5rem 0;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid var(--border-light);
     
     .item-left {
       width: 80px;
@@ -178,7 +178,7 @@ export default {
         height: 100%;
         object-fit: cover;
         border-radius: 4px;
-        background-color: #f5f5f5;
+        background-color: var(--bg-muted);
       }
     }
     
@@ -198,7 +198,7 @@ export default {
     .item-title {
       margin: 0;
       font-size: 1rem;
-      color: #333;
+      color: var(--text-primary);
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
@@ -211,7 +211,7 @@ export default {
       flex-shrink: 0;
       
       .item-qty {
-        color: #666;
+        color: var(--text-secondary);
         font-size: 0.9rem;
       }
       
@@ -300,15 +300,15 @@ export default {
     align-items: flex-end;
     gap: 1.5rem;
     padding-top: 1rem;
-    border-top: 1px solid #eee;
+    border-top: 1px solid var(--border-light);
     margin-top: 1rem;
-    background-color: white;
+    background-color: var(--bg-card);
     flex-shrink: 0;
     
     .cart-total {
       font-size: 1.5rem;
       font-weight: bold;
-      color: #333;
+      color: var(--text-primary);
       
       .total-amount {
         margin-left: 1rem;
@@ -364,7 +364,7 @@ export default {
   
   .btn-primary {
     background-color: var(--primary-color);
-    color: white;
+    color: var(--text-on-dark);
     
     &:hover {
       background-color: var(--primary-color);
@@ -373,11 +373,11 @@ export default {
   }
   
   .btn-secondary {
-    background-color: #f1f3f5;
-    color: var(--text);
+    background-color: var(--bg-muted);
+    color: var(--text-secondary);
     
     &:hover {
-      background-color: #f1f3f5;
+      background-color: var(--bg-muted);
     }
   }
 }
