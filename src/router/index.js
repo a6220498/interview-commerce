@@ -24,7 +24,8 @@ const routes = [
 ]
 
 const router = new VueRouter({
-  mode: 'history',
+  // 使用 hash 模式以確保在 GitHub Pages 等靜態主機上重新整理時不會出現 404 錯誤
+  mode: 'hash',
   base: import.meta.env.BASE_URL,
   routes
 })
