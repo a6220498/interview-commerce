@@ -76,7 +76,6 @@ export default {
     },
     confirmAddToCart() {
       if (this.isValid) {
-        // Get image position for animation
         const img = this.$el.querySelector('.product-preview img')
         if (img) {
           const rect = img.getBoundingClientRect()
@@ -121,23 +120,19 @@ export default {
   box-shadow: 0 10px 25px rgba(0,0,0,0.1);
 }
 
+// Dialog specific transition extension
 .fade-enter-active, .fade-leave-active {
-  transition: opacity 0.3s;
-  
   .dialog-content {
     transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   }
 }
 
 .fade-enter, .fade-leave-to {
-  opacity: 0;
-  
   .dialog-content {
     transform: scale(0.9);
   }
 }
 
-// ... keep existing styles for header, body, footer ...
 .dialog-header {
     display: flex;
     justify-content: space-between;
@@ -227,36 +222,8 @@ export default {
     justify-content: flex-end;
     gap: 12px;
 
-    .btn {
-      padding: 10px 20px;
-      border-radius: 6px;
-      border: none;
-      cursor: pointer;
-      font-weight: 500;
-      transition: all 0.2s;
-
-      &.btn-secondary {
-        background: var(--bg-muted);
-        color: var(--text-primary);
-
-        &:hover {
-          background: #e9ecef;
-        }
-      }
-
-      &.btn-primary {
-        background: var(--primary-color);
-        color: white;
-
-        &:hover {
-          background: var(--primary-color);
-        }
-
-        &:disabled {
-          background: #aeb5bc;
-          cursor: not-allowed;
-        }
-      }
+    .btn-primary:disabled {
+      background: #aeb5bc;
     }
   }
 </style>

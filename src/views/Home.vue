@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from 'vuex'
+import { mapState } from 'vuex'
 import ProductCard from '@/components/ProductCard.vue'
 import AddToCartDialog from '@/components/AddToCartDialog.vue'
 
@@ -41,8 +41,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['products']),
-    ...mapGetters(['cartCount'])
+    ...mapState(['products'])
   },
   methods: {
     handleFlyAnimation({ rect, image }) {

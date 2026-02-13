@@ -16,7 +16,7 @@
         <p class="order-time">訂單時間：{{ orderTime }}</p>
       </div>
       
-      <router-link to="/" class="btn-home">返回首頁</router-link>
+      <router-link to="/" class="btn-primary btn-home">返回首頁</router-link>
     </div>
   </div>
 </template>
@@ -63,28 +63,22 @@ export default {
   border-radius: 16px;
   padding: 3rem 2rem;
   text-align: center;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
   max-width: 500px;
   width: 100%;
-  animation: slideUp 0.5s ease-out;
+  animation: slideUp 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
 @keyframes slideUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .success-icon {
   margin: 0 auto 2rem;
   width: 80px;
   height: 80px;
-  animation: scaleIn 0.6s ease-out 0.2s both;
+  animation: scaleIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.2s both;
   
   svg {
     width: 100%;
@@ -93,14 +87,8 @@ export default {
 }
 
 @keyframes scaleIn {
-  from {
-    opacity: 0;
-    transform: scale(0);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
+  from { opacity: 0; transform: scale(0.5); }
+  to { opacity: 1; transform: scale(1); }
 }
 
 h1 {
@@ -119,14 +107,17 @@ h1 {
 
 .order-info {
   background: var(--background-color);
-  border-radius: 8px;
+  border-radius: 12px;
   padding: 1.5rem;
-  margin-bottom: 2rem;
+  margin-bottom: 2.5rem;
+  text-align: left;
   
   p {
     margin: 0.5rem 0;
     color: var(--text-secondary);
     font-size: 0.95rem;
+    display: flex;
+    justify-content: space-between;
     
     &.order-number {
       font-weight: 600;
@@ -136,53 +127,21 @@ h1 {
 }
 
 .btn-home {
-  display: inline-block;
-  padding: 1rem 3rem;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: var(--text-on-dark);
-  text-decoration: none;
-  border-radius: 8px;
-  font-weight: 600;
-  font-size: 1.1rem;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
-  
-  &:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5);
-  }
-  
-  &:active {
-    transform: translateY(0);
-  }
+  width: 100%;
+  padding: 1rem;
 }
 
 @media (max-width: 600px) {
   .checkout-success {
-    padding: 1rem;
+    padding: 1.5rem;
   }
   
   .success-card {
-    padding: 2rem 1.5rem;
-  }
-  
-  .success-icon {
-    width: 60px;
-    height: 60px;
-    margin-bottom: 1.5rem;
+    padding: 2.5rem 1.5rem;
   }
   
   h1 {
-    font-size: 1.5rem;
-  }
-  
-  .success-message {
-    font-size: 1rem;
-  }
-  
-  .btn-home {
-    padding: 0.8rem 2rem;
-    font-size: 1rem;
+    font-size: 1.75rem;
   }
 }
 </style>
