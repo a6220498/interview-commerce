@@ -2,12 +2,15 @@
   <transition name="fade">
     <div v-if="isOpen" class="dialog-overlay" @click.self="closeDialog">
       <div class="dialog-content">
-        <div class="dialog-header">
+        <!-- start header  -->
+        <header class="dialog-header">
           <h3>加入購物車</h3>
           <button class="close-btn" @click="closeDialog">&times;</button>
-        </div>
+        </header>
+        <!-- end header  -->
 
-        <div class="dialog-body" v-if="selectedProduct">
+        <!-- start body  -->
+        <section class="dialog-body" v-if="selectedProduct">
           <div class="product-preview">
             <img :src="selectedProduct.image" :alt="selectedProduct.title" />
             <div class="info">
@@ -26,12 +29,15 @@
               placeholder="請輸入數量"
             />
           </div>
-        </div>
+        </section>
+        <!-- end body  -->
 
-        <div class="dialog-footer">
+        <!-- start footer  -->
+        <footer class="dialog-footer">
           <button class="btn btn-secondary" @click="closeDialog">取消</button>
           <button class="btn btn-primary" @click="confirmAddToCart" :disabled="!isValid">確認</button>
-        </div>
+        </footer>
+        <!-- end footer  -->
       </div>
     </div>
   </transition>
@@ -41,6 +47,7 @@
 import { mapState, mapMutations } from 'vuex'
 
 export default {
+  name: 'AddToCartDialog',
   data() {
     return {
       quantity: 1
@@ -63,9 +70,9 @@ export default {
     }
   },
   methods: {
-    ...mapMutations(['CLOSE_DIALOG', 'ADD_TO_CART']),
+    ...mapMutations(['closeProductDialog', 'addToCart']),
     closeDialog() {
-      this.CLOSE_DIALOG()
+      this.closeProductDialog()
     },
     confirmAddToCart() {
       if (this.isValid) {
@@ -79,11 +86,11 @@ export default {
           })
         }
         
-        this.ADD_TO_CART({
+        this.addToCart({
           product: this.selectedProduct,
           quantity: this.quantity
         })
-        this.CLOSE_DIALOG() // Ensure dialog closes on confirm
+        this.closeProductDialog() // Ensure dialog closes on confirm
       }
     }
   }
@@ -164,7 +171,7 @@ export default {
     gap: 16px;
     margin-bottom: 20px;
     padding: 10px;
-    background: #f8f9fa;
+    background: var(--background-color);
     border-radius: 8px;
 
     img {
@@ -239,11 +246,11 @@ export default {
       }
 
       &.btn-primary {
-        background: #212529;
+        background: var(--primary-color);
         color: white;
 
         &:hover {
-          background: #000;
+          background: var(--primary-color);
         }
 
         &:disabled {

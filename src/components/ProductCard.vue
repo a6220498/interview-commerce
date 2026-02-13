@@ -1,6 +1,6 @@
 <template>
   <div class="product-item">
-    <div class="product-image-container" @mouseenter="hover = true" @mouseleave="hover = false" @click="openDialog">
+    <div class="product-image-container" @mouseover="hover = true" @mouseleave="hover = false" @click="openProductDialog">
       <img :src="product.image" :alt="product.title" class="product-image">
       <button v-show="hover" class="add-to-cart-btn">
         加入購物車
@@ -28,8 +28,8 @@ export default {
     }
   },
   methods: {
-    openDialog() {
-      this.$store.commit('OPEN_DIALOG', this.product)
+    openProductDialog() {
+      this.$store.commit('openProductDialog', this.product)
     }
   }
 }

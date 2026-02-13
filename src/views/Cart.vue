@@ -29,7 +29,7 @@
         <div class="cart-footer">
           <div class="cart-total">
             <span>總計:</span>
-            <span class="total-amount">$ {{ cartTotal }}</span>
+            <span class="total-amount">$ {{ cartTotalAmount }}</span>
           </div>
           <div class="cart-actions">
             <router-link to="/" class="btn-secondary">去購物</router-link>
@@ -48,16 +48,16 @@ export default {
   name: 'Cart',
   computed: {
     ...mapState(['cart']),
-    ...mapGetters(['cartCount', 'cartTotal'])
+    ...mapGetters(['cartCount', 'cartTotalAmount'])
   },
   methods: {
-    ...mapMutations(['CLEAR_CART', 'REMOVE_FROM_CART']),
+    ...mapMutations(['clearCart', 'removeFromCart']),
     handleCheckout() {
-      this.CLEAR_CART()
+      this.clearCart()
       this.$router.push('/checkout-success')
     },
     removeItem(productId) {
-      this.REMOVE_FROM_CART(productId)
+      this.removeFromCart(productId)
     }
   }
 }
@@ -226,7 +226,7 @@ export default {
     .btn-delete {
       background: none;
       border: none;
-      color: #e53935;
+      color: var(--cart-red-color);
       font-size: 1.8rem;
       cursor: pointer;
       padding: 0.25rem 0.5rem;
@@ -312,7 +312,7 @@ export default {
       
       .total-amount {
         margin-left: 1rem;
-        color: #e53935;
+        color: var(--cart-red-color);
       }
     }
     
@@ -363,21 +363,21 @@ export default {
   }
   
   .btn-primary {
-    background-color: #212529;
+    background-color: var(--primary-color);
     color: white;
     
     &:hover {
-      background-color: #000;
+      background-color: var(--primary-color);
       transform: translateY(-2px);
     }
   }
   
   .btn-secondary {
     background-color: #f1f3f5;
-    color: #495057;
+    color: var(--text);
     
     &:hover {
-      background-color: #e9ecef;
+      background-color: #f1f3f5;
     }
   }
 }
