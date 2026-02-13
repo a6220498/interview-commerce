@@ -1,44 +1,53 @@
 <template>
-  <div v-if="isOpen" class="dialog-overlay" @click.self="closeDialog">
-    <div class="dialog-content">
-      <div class="dialog-header">
-        <h3>加入購物車</h3>
-        <button class="close-btn" @click="closeDialog">&times;</button>
-      </div>
+  <transition name="fade">
+    <div v-if="isOpen" class="dialog-overlay" @click.self="closeDialog">
+      <div class="dialog-content">
+        <!-- start header  -->
+        <header class="dialog-header">
+          <h3>加入購物車</h3>
+          <button class="close-btn" @click="closeDialog">&times;</button>
+        </header>
+        <!-- end header  -->
 
-      <div class="dialog-body" v-if="selectedProduct">
-        <div class="product-preview">
-          <img :src="selectedProduct.image" :alt="selectedProduct.title" />
-          <div class="info">
-            <h4>{{ selectedProduct.title }}</h4>
-            <p class="price">$ {{ selectedProduct.price }}</p>
+        <!-- start body  -->
+        <section class="dialog-body" v-if="selectedProduct">
+          <div class="product-preview">
+            <img :src="selectedProduct.image" :alt="selectedProduct.title" />
+            <div class="info">
+              <h4>{{ selectedProduct.title }}</h4>
+              <p class="price">$ {{ selectedProduct.price }}</p>
+            </div>
           </div>
-        </div>
 
-        <div class="form-group">
-          <label for="qty">數量 <span class="required">*</span></label>
-          <input 
-            type="number" 
-            id="qty" 
-            v-model.number="quantity" 
-            min="1" 
-            placeholder="請輸入數量"
-          />
-        </div>
-      </div>
+          <div class="form-group">
+            <label for="qty">數量 <span class="required">*</span></label>
+            <input 
+              type="number" 
+              id="qty" 
+              v-model.number="quantity" 
+              min="1" 
+              placeholder="請輸入數量"
+            />
+          </div>
+        </section>
+        <!-- end body  -->
 
-      <div class="dialog-footer">
-        <button class="btn btn-secondary" @click="closeDialog">取消</button>
-        <button class="btn btn-primary" @click="confirmAddToCart" :disabled="!isValid">確認</button>
+        <!-- start footer  -->
+        <footer class="dialog-footer">
+          <button class="btn btn-secondary" @click="closeDialog">取消</button>
+          <button class="btn btn-primary" @click="confirmAddToCart" :disabled="!isValid">確認</button>
+        </footer>
+        <!-- end footer  -->
       </div>
     </div>
-  </div>
+  </transition>
 </template>
 
 <script>
 import { mapState, mapMutations } from 'vuex'
 
 export default {
+  name: 'AddToCartDialog',
   data() {
     return {
       quantity: 1
@@ -61,17 +70,26 @@ export default {
     }
   },
   methods: {
-    ...mapMutations(['CLOSE_DIALOG', 'ADD_TO_CART']),
+    ...mapMutations(['closeProductDialog', 'addToCart']),
     closeDialog() {
-      this.CLOSE_DIALOG()
+      this.closeProductDialog()
     },
     confirmAddToCart() {
       if (this.isValid) {
-        this.ADD_TO_CART({
+        const img = this.$el.querySelector('.product-preview img')
+        if (img) {
+          const rect = img.getBoundingClientRect()
+          this.$emit('fly-to-cart', {
+            rect,
+            image: this.selectedProduct.image
+          })
+        }
+        
+        this.addToCart({
           product: this.selectedProduct,
           quantity: this.quantity
         })
-        // Optional: Show success message/toast
+        this.closeProductDialog() // Ensure dialog closes on confirm
       }
     }
   }
@@ -85,7 +103,7 @@ export default {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0,0,0,0.5);
+  background-color: var(--overlay-bg);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -94,15 +112,28 @@ export default {
 }
 
 .dialog-content {
-  background: white;
+  background: var(--bg-card);
   width: 90%;
   max-width: 400px;
   border-radius: 12px;
   padding: 24px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-  animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
 
-  .dialog-header {
+// Dialog specific transition extension
+.fade-enter-active, .fade-leave-active {
+  .dialog-content {
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+}
+
+.fade-enter, .fade-leave-to {
+  .dialog-content {
+    transform: scale(0.9);
+  }
+}
+
+.dialog-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -119,12 +150,12 @@ export default {
       border: none;
       font-size: 1.5rem;
       cursor: pointer;
-      color: #999;
+      color: var(--text-muted);
       padding: 0;
       line-height: 1;
 
       &:hover {
-        color: #333;
+        color: var(--text-primary);
       }
     }
   }
@@ -134,7 +165,7 @@ export default {
     gap: 16px;
     margin-bottom: 20px;
     padding: 10px;
-    background: #f8f9fa;
+    background: var(--background-color);
     border-radius: 8px;
 
     img {
@@ -151,7 +182,7 @@ export default {
       }
       .price {
         margin: 0;
-        color: #666;
+        color: var(--text-secondary);
         font-weight: 500;
       }
     }
@@ -167,21 +198,21 @@ export default {
       font-size: 0.9rem;
       
       .required {
-        color: #dc3545;
+        color: var(--error-color);
       }
     }
 
     input {
       width: 100%;
       padding: 10px 12px;
-      border: 1px solid #ddd;
+      border: 1px solid var(--border-base);
       border-radius: 6px;
       font-size: 1rem;
       outline: none;
       transition: border-color 0.2s;
 
       &:focus {
-        border-color: #42b983;
+        border-color: var(--success-color);
       }
     }
   }
@@ -191,48 +222,8 @@ export default {
     justify-content: flex-end;
     gap: 12px;
 
-    .btn {
-      padding: 10px 20px;
-      border-radius: 6px;
-      border: none;
-      cursor: pointer;
-      font-weight: 500;
-      transition: all 0.2s;
-
-      &.btn-secondary {
-        background: #f1f3f5;
-        color: #495057;
-
-        &:hover {
-          background: #e9ecef;
-        }
-      }
-
-      &.btn-primary {
-        background: #212529;
-        color: white;
-
-        &:hover {
-          background: #000;
-        }
-
-        &:disabled {
-          background: #aeb5bc;
-          cursor: not-allowed;
-        }
-      }
+    .btn-primary:disabled {
+      background: #aeb5bc;
     }
   }
-}
-
-@keyframes popIn {
-  from {
-    opacity: 0;
-    transform: scale(0.9);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
 </style>

@@ -1,37 +1,37 @@
 [
     {
         "id": 1,
-        "title": "Minimalist White Tops",
+        "title": "極簡白上衣",
         "price": 49.99,
         "image": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80"
     },
     {
         "id": 2,
-        "title": "Black Canvas Sneakers",
+        "title": "黑色帆布鞋",
         "price": 89.99,
         "image": "https://images.unsplash.com/photo-1549298916-b41d501d3772?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80"
     },
     {
         "id": 3,
-        "title": "Vintage Analog Watch",
+        "title": "復古指針錶",
         "price": 129.50,
         "image": "https://images.unsplash.com/photo-1524805444758-089113d48a6d?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80"
     },
     {
         "id": 4,
-        "title": "Canvas Backpack",
+        "title": "帆布後背包",
         "price": 79.00,
         "image": "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80"
     },
     {
         "id": 5,
-        "title": "Linen Trousers",
+        "title": "亞麻長褲",
         "price": 55.49,
         "image": "https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80"
     },
     {
         "id": 6,
-        "title": "Geometric Earrings",
+        "title": "幾何耳環",
         "price": 24.99,
         "image": "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80"
     }

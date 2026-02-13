@@ -11,6 +11,9 @@ importers:
       vue:
         specifier: ^2.6.14
         version: 2.6.14
+      vue-router:
+        specifier: ^3.6.5
+        version: 3.6.5(vue@2.6.14)
       vuex:
         specifier: ^3.6.2
         version: 3.6.2(vue@2.6.14)
@@ -1164,6 +1167,11 @@ packages:
       terser:
         optional: true
 
+  vue-router@3.6.5:
+    resolution: {integrity: sha512-VYXZQLtjuvKxxcshuRAwjHnciqZVoXAjTjcqBTz4rKc8qih9g9pI3hbDjmqXaHdgL3v8pV6P8Z335XvHzESxLQ==}
+    peerDependencies:
+      vue: ^2
+
   vue-template-babel-compiler@1.2.0:
     resolution: {integrity: sha512-CScBSX1/wCdmmZ/Lvj/63p2CCVTS0FMj0F69VRBo73CuJrjvPAPGmeNJ7D/cwt/VS2PduowRWbO8N4Zh4Z3b0g==}
     engines: {node: '>=12.0.0'}
@@ -2083,6 +2091,10 @@ snapshots:
       '@types/node': 25.2.3
       fsevents: 2.3.3
       sass: 1.97.3
+
+  vue-router@3.6.5(vue@2.6.14):
+    dependencies:
+      vue: 2.6.14
 
   vue-template-babel-compiler@1.2.0(vue-template-compiler@2.6.14):
     dependencies:

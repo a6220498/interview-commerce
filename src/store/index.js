@@ -5,44 +5,72 @@ import productsData from '../data/products.json'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
-    state: {
-        products: productsData,
-        cart: [],
-        isDialogOpen: false,
-        selectedProduct: null
+  state: {
+    // 存放商品列表
+    products: productsData,
+    // 購物車列表
+    cart: [],
+    // 彈窗是否打開
+    isDialogOpen: false,
+    // 正被彈窗打開的商品
+    selectedProduct: null
+  },
+  mutations: {
+    // 打開商品彈窗
+    openProductDialog(state, product) {
+      state.selectedProduct = product
+      state.isDialogOpen = true
     },
-    mutations: {
-        OPEN_DIALOG(state, product) {
-            state.selectedProduct = product
-            state.isDialogOpen = true
-        },
-        CLOSE_DIALOG(state) {
-            state.isDialogOpen = false
-            state.selectedProduct = null
-        },
-        ADD_TO_CART(state, item) {
-            const existingItem = state.cart.find(p => p.id === item.id)
-            if (existingItem) {
-                existingItem.quantity += parseInt(item.quantity)
-            } else {
-                state.cart.push({ ...item.product, quantity: parseInt(item.quantity) })
-            }
-        }
+    // 關閉商品彈窗
+    closeProductDialog(state) {
+      state.isDialogOpen = false
+      state.selectedProduct = null
     },
-    actions: {
-        openAddToCartDialog({ commit }, product) {
-            commit('OPEN_DIALOG', product)
-        },
-        closeAddToCartDialog({ commit }) {
-            commit('CLOSE_DIALOG')
-        },
-        addToCart({ commit }, payload) {
-            commit('ADD_TO_CART', payload)
-            commit('CLOSE_DIALOG')
-        }
+    // 加入購物車
+    addToCart(state, item) {
+      const existingItem = state.cart.find(p => p.id === item.product.id)
+      if (existingItem) {
+        existingItem.quantity += parseInt(item.quantity)
+      } else {
+        state.cart.push({ ...item.product, quantity: parseInt(item.quantity) })
+      }
     },
-    getters: {
-        cartCount: state => state.cart.reduce((total, item) => total + item.quantity, 0),
-        cartTotal: state => state.cart.reduce((total, item) => total + (item.price * item.quantity), 0).toFixed(2)
+    // 清空購物車
+    clearCart(state) {
+      state.cart = []
+    },
+    // 移除購物車商品
+    removeFromCart(state, productId) {
+      state.cart = state.cart.filter(item => item.id !== productId)
     }
+  },
+  actions: {
+    // 打開商品彈窗
+    openProductDialog({ commit }, product) {
+      commit('openProductDialog', product)
+    },
+    // 關閉商品彈窗
+    closeProductDialog({ commit }) {
+      commit('closeProductDialog')
+    },
+    // 加入購物車
+    addToCart({ commit }, payload) {
+      commit('addToCart', payload)
+      commit('closeProductDialog')
+    },
+    // 清空購物車
+    clearCart({ commit }) {
+      commit('clearCart')
+    },
+    // 移除購物車商品
+    removeFromCart({ commit }, productId) {
+      commit('removeFromCart', productId)
+    }
+  },
+  getters: {
+    // 購物車商品總數
+    cartCount: state => state.cart.reduce((total, item) => total + item.quantity, 0),
+    // 購物車商品總金額
+    cartTotalAmount: state => state.cart.reduce((total, item) => total + (item.price * item.quantity), 0).toFixed(2)
+  }
 })

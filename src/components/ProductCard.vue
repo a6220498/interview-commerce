@@ -1,8 +1,8 @@
 <template>
   <div class="product-item">
-    <div class="product-image-container" @mouseenter="hover = true" @mouseleave="hover = false">
+    <div class="product-image-container" @click="openProductDialog">
       <img :src="product.image" :alt="product.title" class="product-image">
-      <button v-show="hover" class="add-to-cart-btn" @click="openDialog">
+      <button class="add-to-cart-btn">
         加入購物車
       </button>
     </div>
@@ -23,13 +23,11 @@ export default {
     }
   },
   data() {
-    return {
-      hover: false
-    }
+    return {}
   },
   methods: {
-    openDialog() {
-      this.$store.commit('OPEN_DIALOG', this.product)
+    openProductDialog() {
+      this.$store.commit('openProductDialog', this.product)
     }
   }
 }
@@ -48,7 +46,8 @@ export default {
     aspect-ratio: 1; 
     overflow: hidden;
     border-radius: 8px;
-    background-color: #f5f5f5;
+    background-color: var(--bg-muted);
+    cursor: pointer;
     
     .product-image {
       width: 100%;
@@ -57,8 +56,16 @@ export default {
       transition: transform 0.3s ease;
     }
 
-    &:hover .product-image {
-      transform: scale(1.05);
+    // 桌面版 Hover 效果 (只在支援 hover 的裝置上)
+    @media (hover: hover) {
+      &:hover .product-image {
+        transform: scale(1.05);
+      }
+      
+      &:hover .add-to-cart-btn {
+        opacity: 1;
+        pointer-events: auto;
+      }
     }
     
     .add-to-cart-btn {
@@ -67,17 +74,22 @@ export default {
       left: 50%;
       transform: translateX(-50%);
       background-color: rgba(0, 0, 0, 0.8);
-      color: white;
+      color: var(--text-on-dark);
       border: none;
       padding: 8px 16px;
       border-radius: 20px;
       cursor: pointer;
       font-size: 14px;
       white-space: nowrap;
-      transition: opacity 0.2s;
+      transition: all 0.2s;
+      
+      // 預設隱藏且不干擾點擊
+      opacity: 0;
+      pointer-events: none;
       
       &:hover {
         background-color: black;
+        transform: translateX(-50%) scale(1.05);
       }
     }
   }
@@ -87,11 +99,11 @@ export default {
       font-size: 16px;
       font-weight: 500;
       margin: 0;
-      color: #333;
+      color: var(--text-primary);
     }
     .product-price {
       font-size: 14px;
-      color: #666;
+      color: var(--text-secondary);
       margin: 4px 0 0;
     }
   }
