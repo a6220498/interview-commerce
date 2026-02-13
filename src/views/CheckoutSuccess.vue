@@ -118,7 +118,7 @@ h1 {
 }
 
 .order-info {
-  background: #f8f9fa;
+  background: var(--background-color);
   border-radius: 8px;
   padding: 1.5rem;
   margin-bottom: 2rem;
