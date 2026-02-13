@@ -98,24 +98,24 @@ export default {
     overflow: hidden; /* Prevent container itself from scrolling */
   }
 
-  // Fade transition for cart content switch
-  .fade-enter-active, .fade-leave-active {
-    transition: opacity 0.3s ease;
-  }
-  
-  .fade-enter, .fade-leave-to {
-    opacity: 0;
+  .cart-items-container {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
   }
   
   .empty-cart {
     text-align: center;
-    padding: 3rem;
+    padding: 4rem 2rem;
     background: var(--bg-muted);
-    border-radius: 8px;
+    border-radius: 12px;
+    margin-top: 2rem;
     
     p {
-      margin-bottom: 1.5rem;
+      margin-bottom: 2rem;
       color: var(--text-secondary);
+      font-size: 1.1rem;
     }
   }
 
@@ -124,9 +124,9 @@ export default {
     padding: 0;
     margin: 0;
     flex-grow: 1;
-    overflow-y: auto; /* Enable scrolling for list */
-    overflow-x: hidden; /* Hide horizontal scrollbar during animation */
-    padding-right: 10px; /* Space for scrollbar */
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-right: 10px;
     
     &::-webkit-scrollbar {
       width: 6px;
@@ -265,7 +265,7 @@ export default {
       
       .item-title {
         font-size: 0.875rem;
-        padding-right: 2rem; /* 为删除按钮留空间 */
+        padding-right: 2rem;
       }
       
       .item-meta {
@@ -296,10 +296,11 @@ export default {
 
   .cart-footer {
     display: flex;
-    flex-direction: column;
-    align-items: flex-end;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
     gap: 1.5rem;
-    padding-top: 1rem;
+    padding-top: 1.5rem;
     border-top: 1px solid var(--border-light);
     margin-top: 1rem;
     background-color: var(--bg-card);
@@ -309,6 +310,8 @@ export default {
       font-size: 1.5rem;
       font-weight: bold;
       color: var(--text-primary);
+      display: flex;
+      align-items: center;
       
       .total-amount {
         margin-left: 1rem;
@@ -319,65 +322,28 @@ export default {
     .cart-actions {
       display: flex;
       gap: 1rem;
+      align-items: center;
     }
 
     @media (max-width: 600px) {
+      flex-direction: column;
+      align-items: flex-end;
       gap: 1rem;
-      padding-top: 0.75rem;
+      padding-top: 1rem;
       
       .cart-total {
-        font-size: 1.2rem;
-        
-        .total-amount {
-          margin-left: 0.5rem;
-        }
+        font-size: 1.3rem;
       }
       
       .cart-actions {
-        gap: 0.5rem;
         width: 100%;
+        justify-content: flex-end;
         
-        a, button {
+        .btn {
           flex: 1;
-          text-align: center;
+          max-width: 150px;
         }
       }
-    }
-  }
-  
-  .btn-primary, .btn-secondary {
-    display: inline-block;
-    padding: 0.8rem 2rem;
-    text-decoration: none;
-    border-radius: 4px;
-    font-weight: 500;
-    transition: all 0.3s;
-    border: none;
-    cursor: pointer;
-    font-size: 1rem;
-    
-    @media (max-width: 600px) {
-      padding: 0.6rem 1rem;
-      font-size: 0.875rem;
-    }
-  }
-  
-  .btn-primary {
-    background-color: var(--primary-color);
-    color: var(--text-on-dark);
-    
-    &:hover {
-      background-color: var(--primary-color);
-      transform: translateY(-2px);
-    }
-  }
-  
-  .btn-secondary {
-    background-color: var(--bg-muted);
-    color: var(--text-secondary);
-    
-    &:hover {
-      background-color: var(--bg-muted);
     }
   }
 }
