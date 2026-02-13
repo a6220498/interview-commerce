@@ -47,6 +47,7 @@ export default {
   background-color: var(--bg-card);
   border-bottom: 1px solid var(--border-light);
   padding: 1rem 2rem;
+  padding-top: calc(1rem + env(safe-area-inset-top));
   box-shadow: 0 2px 10px rgba(0,0,0,0.05);
 
   .header-container {

@@ -14,11 +14,16 @@ body {
     color: var(--text-primary);
     margin: 0;
     padding: 0;
+    padding-bottom: constant(safe-area-inset-bottom);
+    padding-bottom: env(safe-area-inset-bottom);
 }
 
 #app {
     width: 100%;
     max-width: 2000px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 ul {

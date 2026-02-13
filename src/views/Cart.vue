@@ -300,7 +300,8 @@ export default {
     justify-content: space-between;
     align-items: center;
     gap: 1.5rem;
-    padding-top: 1.5rem;
+    padding: 1.5rem;
+    padding-bottom: calc(1.5rem + env(safe-area-inset-bottom));
     border-top: 1px solid var(--border-light);
     margin-top: 1rem;
     background-color: var(--bg-card);
@@ -312,6 +313,7 @@ export default {
       color: var(--text-primary);
       display: flex;
       align-items: center;
+      line-height: 1;
       
       .total-amount {
         margin-left: 1rem;
@@ -328,8 +330,9 @@ export default {
     @media (max-width: 600px) {
       flex-direction: column;
       align-items: flex-end;
-      gap: 1rem;
-      padding-top: 1rem;
+      gap: 1.25rem;
+      padding: 1.25rem;
+      padding-bottom: calc(1.25rem + env(safe-area-inset-bottom));
       
       .cart-total {
         font-size: 1.3rem;
