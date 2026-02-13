@@ -1,8 +1,8 @@
 <template>
   <div class="product-item">
-    <div class="product-image-container" @mouseover="hover = true" @mouseleave="hover = false" @click="openProductDialog">
+    <div class="product-image-container" @click="openProductDialog">
       <img :src="product.image" :alt="product.title" class="product-image">
-      <button v-show="hover" class="add-to-cart-btn">
+      <button class="add-to-cart-btn">
         加入購物車
       </button>
     </div>
@@ -23,9 +23,7 @@ export default {
     }
   },
   data() {
-    return {
-      hover: false
-    }
+    return {}
   },
   methods: {
     openProductDialog() {
@@ -58,8 +56,16 @@ export default {
       transition: transform 0.3s ease;
     }
 
-    &:hover .product-image {
-      transform: scale(1.05);
+    // 桌面版 Hover 效果 (只在支援 hover 的裝置上)
+    @media (hover: hover) {
+      &:hover .product-image {
+        transform: scale(1.05);
+      }
+      
+      &:hover .add-to-cart-btn {
+        opacity: 1;
+        pointer-events: auto;
+      }
     }
     
     .add-to-cart-btn {
@@ -75,10 +81,15 @@ export default {
       cursor: pointer;
       font-size: 14px;
       white-space: nowrap;
-      transition: opacity 0.2s;
+      transition: all 0.2s;
+      
+      // 預設隱藏且不干擾點擊
+      opacity: 0;
+      pointer-events: none;
       
       &:hover {
         background-color: black;
+        transform: translateX(-50%) scale(1.05);
       }
     }
   }

@@ -4,7 +4,7 @@
     <header class="app-header">
       <div class="header-container">
         <h1>面試題目-微型電商</h1>
-        <div class="cart-icon" ref="cartIcon" @click="$router.push('/cart')">
+        <div class="cart-icon" id="cartIcon" @click="$router.push('/cart')">
           <!-- 購物車圖標 來源: Font Awesome CDN -->
           <i class="fas fa-shopping-cart"></i>
           <span class="badge" v-if="cartCount > 0">{{ cartCount }}</span>

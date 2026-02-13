@@ -1,12 +1,15 @@
 <template>
     <div class="product-grid">
+      <!-- 商品卡片 -->
       <product-card
         v-for="product in products"
         :key="product.id"
         :product="product"
       />
+      <!-- 加入購物車彈窗 -->
       <add-to-cart-dialog @fly-to-cart="handleFlyAnimation" />
 
+      <!-- 飛到購物車的圖片 -->
       <div class="flying-img-container">
         <img 
           v-for="item in flyingItems"
@@ -43,20 +46,24 @@ export default {
   },
   methods: {
     handleFlyAnimation({ rect, image }) {
-      const cartIcon = this.$refs.cartIcon
+      const cartIcon = document.getElementById('cartIcon')
       if (!cartIcon) return
 
       const cartRect = cartIcon.getBoundingClientRect()
       const id = Date.now()
       
-      // Start position
+      // 使用 rect 的原始寬度作為固定寬高
+      const initialSize = rect.width
+      
+      // 初始樣式：位置固定在原始位置，使用 transform 初始化
       const startStyle = {
         top: `${rect.top}px`,
         left: `${rect.left}px`,
-        width: `${rect.width}px`,
-        height: `${rect.height}px`,
+        width: `${initialSize}px`,
+        height: `${initialSize}px`,
         opacity: 1,
-        transform: 'scale(1)'
+        transform: 'translate(0, 0) scale(1)',
+        transformOrigin: 'center center'
       }
 
       this.flyingItems.push({
@@ -65,22 +72,30 @@ export default {
         style: startStyle
       })
 
-      // Trigger animation in next frame
+      // 執行飛行動畫
       requestAnimationFrame(() => {
         const item = this.flyingItems.find(i => i.id === id)
         if (item) {
-          // Calculate center of cart icon
-          const centerX = cartRect.left + cartRect.width / 2
-          const centerY = cartRect.top + cartRect.height / 2
-          const targetSize = 24 // Shrink to cart icon size
+          // 計算目標中心點（購物車圖示中心）
+          const targetCenterX = cartRect.left + cartRect.width / 2
+          const targetCenterY = cartRect.top + cartRect.height / 2
+          
+          // 計算起點中心點（圖片原始中心）
+          const startCenterX = rect.left + rect.width / 2
+          const startCenterY = rect.top + rect.height / 2
+          
+          // 計算位移距離
+          const translateX = targetCenterX - startCenterX
+          const translateY = targetCenterY - startCenterY
+          
+          // 計算縮放比例（目標大小為 24px）
+          const scale = 24 / initialSize
 
+          // 更新 transform，不觸發 reflow
           item.style = {
-            top: `${centerY - targetSize / 2}px`,
-            left: `${centerX - targetSize / 2}px`,
-            width: `${targetSize}px`,
-            height: `${targetSize}px`,
+            ...item.style,
             opacity: 0.9,
-            transform: 'scale(1)'
+            transform: `translate(${translateX}px, ${translateY}px) scale(${scale})`
           }
         }
       })
